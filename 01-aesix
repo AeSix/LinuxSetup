@@ -39,8 +39,8 @@ echo "$(df -h /)"
 echo "$(df -h /boot | tail -n -1)"
 # Displays some Memory usage
 echo "\e[4mRAM:\e[24m"
-# This displays "free -thm" with half the spaces
-echo "$(free -thm | sed 's/  / /g')"
+# This displays "free -thm" without swap, with half the white spaces
+echo "$(free -thm | head -2 | sed 's/  / /g')"
 echo "\e[4mSWAP:\e[24m"
 echo "$(swapon --show=Size,Used)"
 echo "\e[0m"
