@@ -19,3 +19,7 @@ This file is used by me for the welcome section.  If using a global file, the $U
 
 ## ssh-motd
 This is a simple text file, with no scripting support.  It is read by 01-aesix to fill the welcome section.  This has been added as a user file so the user can use it as a reminder section, or to leave a note for other persons with account access.  This can be hosted in a non-user global area, with minor changes to the 01-aesix script, to disallow user changes.  This goes against the spirit, however :)
+
+
+## ssh-banner
+Will not be displayed on authenticated logins provided 01-aesix motd script is being used.  Should remain after connection close on clients which support that.  This simply displays a message to users who fail to authenticate, either due to wrote username, password, or no authentication methods available for the user (such as disabling root login)
