@@ -10,7 +10,7 @@ USE AT YOUR OWN RISK! I take no responsibility if these things break anything.
 Except if they break the entire universe. Because that's god level, and I'll claim that.
 
 
-## Create 01-aesix
+## C01-aesix
 This file must be in "/etc/update-motd.d/" must be executable, and must be the only executable script running on ssh login for aesthetic purposes.  Additional work will be needed to make it work with multiple IPs.  I only have 1 WAN routable IP (1 each, v4 and v6) and as such, this script works perfectly fine for my needs.
 
 This script requires an additional file to be located at "~/ssh-motd" for which the user can alter.  
