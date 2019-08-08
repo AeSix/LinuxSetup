@@ -1,0 +1,68 @@
+#!/bin/sh
+#### THIS FILE GOES IN /etc/update-motd.d/ and must be chmod +x'd, with all others being -x'd.
+## Comments are above the content they are commenting upon.
+#This line clears the login info from the screen, presenting a much more clear output
+printf "\033c"
+echo "\e[34;107m"
+
+### Variables section
+#This sets a variable with the IP address (v4 or v6)
+HOST4=`hostname -i`
+HOST6=`ip -6 addr | grep inet6 | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80`
+
+#This retrieves the currently logging in username for user in scripts.
+PPID1=`cat /proc/$PPID/status | grep PPid | awk '{ print $2 }'`
+PPID2=`cat /proc/$PPID1/status | grep PPid | awk '{ print $2 }'`
+USERNAME=`ps -x | grep $PPID2 | awk '{ print $6 }' |  sed "s/[[:digit:].-]//g"`
+
+### System welcome section
+echo "\e[30;45mWelcome $USERNAME!"
+echo "\e[35;40m$(cat /home/$USERNAME/ssh-motd)"
+echo "\e[0m"
+
+### System info section
+echo "\e[30;43mSystem Info:                                                \e[40;33m"
+echo "Host: $(uname -n)"
+echo "Uptime: $(uptime -p) - $(uptime -s)"
+echo "Running: $(lsb_release -ds) with $(uname -sr)"
+echo "On: $(lscpu | grep "Model name:" | sed -r 's/Model name:\s{1,}//g')"
+echo "\e[0m"
+
+### System Status section
+echo "\e[30;44mSystem Status:                                              \e[34;40m"
+# Displays some disk info:
+echo "\e[4mDisk:\e[24m"
+# Show some useful df output info:
+# header and root parititon
+echo "$(df -h /)"
+# boot partition
+echo "$(df -h /boot | tail -n -1)"
+# Displays some Memory usage
+echo "\e[4mRAM:\e[24m"
+# This displays "free -thm" with half the spaces
+echo "$(free -thm | sed 's/  / /g')"
+echo "\e[4mSWAP:\e[24m"
+echo "$(swapon --show=Size,Used)"
+echo "\e[0m"
+
+### System Hosts section
+echo "\e[30;42mSystem Hosts:                                               \e[40;32m"
+
+# Display IPv4/6 IP *Addresses*
+echo "\e[4mAddresses:\e[24m"
+echo "IPv6: $HOST6"
+echo "IPv4: $HOST4"
+
+# Display hosts and domains - found in /etc/hosts
+# !!!This will surely break with multiple v4 or v6 addresses!!!
+echo "\e[4mFQDNs:\e[24m"
+echo "$(cat /etc/hosts | grep -ie $HOST6)"
+echo "$(cat /etc/hosts | grep -ie $HOST4)"
+
+### Terminal setup section
+# This (re)sets the terminal text color.
+#echo "\e[0m" #back to defaults...
+#echo "System Login:                                               \e[0m"
+# or use cyan. Will be reset on "reset" and upon exiting programs.
+echo "\e[30;46m" #black on cyan for title bar, and reversed below.
+echo "System Login:                                               \e[36;40m"
