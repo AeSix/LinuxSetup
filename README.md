@@ -17,6 +17,8 @@ This script requires an additional file to be located at "~/ssh-motd" for which 
 Alternatively, the ssh-motd file can be hosted in a non-user area, the script re-directed to it.  
 This file is used by me for the welcome section.  If using a global file, the $USERNAME variable and scripts can be commented out.
 
+This file uses a 61 charecter width, so it displays nicely on my Note 8.  The ssh-motd file should also use 61 char width, to maintain aesthetics.
+
 ## ssh-motd
 This is a simple text file, with no scripting support.  It is read by 01-aesix to fill the welcome section.  This has been added as a user file so the user can use it as a reminder section, or to leave a note for other persons with account access.  This can be hosted in a non-user global area, with minor changes to the 01-aesix script, to disallow user changes.  This goes against the spirit, however :)
 
