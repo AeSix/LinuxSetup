@@ -25,3 +25,7 @@ This is a simple text file, with no scripting support.  It is read by 01-aesix t
 
 ## ssh-banner
 Will not be displayed on authenticated logins provided 01-aesix motd script is being used.  Should remain after connection close on clients which support that.  This simply displays a message to users who fail to authenticate, either due to wrote username, password, or no authentication methods available for the user (such as disabling root login)
+
+
+##Some useful links:
+https://misc.flogisoft.com/bash/tip_colors_and_formatting
